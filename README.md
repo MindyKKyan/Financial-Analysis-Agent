@@ -1,54 +1,100 @@
-# Fina1 Crew
+# Financial Analysis Agent 📈🤖
 
-Welcome to the Fina1 Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the **Financial Analysis Agent** project! This tool leverages AI to perform comprehensive stock analysis, providing insights into technical analysis, fundamental analysis, sentiment analysis, risk assessment, competitor analysis, and investment strategies. 🚀
 
-## Installation
+## Features 🌟
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+- **Technical Analysis**: Analyze stock price movements and trends. 📊
+- **Fundamental Analysis**: Evaluate a company's financial health. 💰
+- **Sentiment Analysis**: Gauge market sentiment through news and social media. 📰
+- **Risk Assessment**: Assess potential investment risks. ⚠️
+- **Competitor Analysis**: Compare companies within the same industry. 🏢
+- **Investment Strategy**: Develop data-driven investment strategies. 📈
 
-First, if you haven't already, install uv:
+## Installation 🛠️
 
+1. **Clone the Repository**:  
+   ```bash
+   git clone https://github.com/MindyKKyan/Financial-Analysis-Agent.git
+   ```
+
+2. **Navigate to the Project Directory**:
+   ```bash
+   cd Financial-Analysis-Agent
+   ```
+
+3. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage 🚀
+
+### Run the Application:
 ```bash
-pip install uv
+streamlit run main.py
 ```
 
-Next, navigate to your project directory and install the dependencies:
+### Enter a Stock Symbol:
+Input the stock symbol (e.g., AAPL) in the provided field. 🏢
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+### Analyze:
+Click the "Analyze Stock" button to view the comprehensive analysis. 📊
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+## Contributing 🤝
 
-- Modify `src/fina_1/config/agents.yaml` to define your agents
-- Modify `src/fina_1/config/tasks.yaml` to define your tasks
-- Modify `src/fina_1/crew.py` to add your own logic, tools and specific args
-- Modify `src/fina_1/main.py` to add custom inputs for your agents and tasks
+We welcome contributions! To get started:
 
-## Running the Project
+1. **Fork the Repository**: Click the "Fork" button at the top right. 🍴
+2. **Clone Your Fork**:
+   ```bash
+   git clone https://github.com/your-username/Financial-Analysis-Agent.git
+   ```
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+3. **Create a New Branch**:
+   ```bash
+   git checkout -b feature-branch
+   ```
 
-```bash
-$ crewai run
-```
+4. **Make Your Changes**: ✨
+5. **Commit Your Changes**:
+   ```bash
+   git commit -m "Add new feature"
+   ```
 
-This command initializes the finA_1 Crew, assembling the agents and assigning them tasks as defined in your configuration.
+6. **Push to Your Fork**:
+   ```bash
+   git push origin feature-branch
+   ```
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+7. **Create a Pull Request**: Submit a pull request to the main repository. 🔄
 
-## Understanding Your Crew
+## License 📄
 
-The finA_1 Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+Distributed under the MIT License. See LICENSE for more information. 📜
 
-## Support
+## Acknowledgements 🙏
 
-For support, questions, or feedback regarding the Fina1 Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+- Streamlit for the interactive dashboard framework. 🖥️
+- yfinance for fetching financial data. 📈
+- Plotly for creating interactive charts. 📊
 
-Let's create wonders together with the power and simplicity of crewAI.
+## Contact 📬
+
+For inquiries, please contact:
+
+- Email: your-email@example.com 📧
+- GitHub: MindyKKyan 🧑‍💻
+
+Happy analyzing! 🎉
+
+**Notes:**
+
+- Replace placeholders like `your-email@example.com` and `your-username` with your actual information. 📝
+- Ensure that the `requirements.txt` file includes all necessary dependencies for your project. 📋
+- Customize the acknowledgements and contact sections as needed. 🧑‍💼
+
+For a comprehensive list of GitHub-supported emojis, you can refer to this [cheat sheet](https://gist.github.com/rxaviers/7360908).
+
+This template provides a structured and engaging overview of your project, making it easier for users and contributors to understand and participate.
+ 
