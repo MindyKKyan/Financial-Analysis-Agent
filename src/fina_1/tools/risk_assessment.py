@@ -3,6 +3,7 @@ import numpy as np
 from scipy import stats
 from crewai_tools import tool
 
+
 @tool
 def risk_assessment(ticker: str, benchmark: str = "^GSPC", period: str = "5y"):
     """

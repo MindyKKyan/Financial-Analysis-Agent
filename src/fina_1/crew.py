@@ -1,62 +1,92 @@
-from crewai import Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
+import json
+from crewai import Agent, Task, Crew, Process
+from langchain_community.llms import Ollama  # Updated import for Ollama
+from tools.yf_tech_analysis import yf_tech_analysis
+#from tools.yf_fundamental_analysis import yf_fundamental_analysis
+from tools.sentiment_analysis import sentiment_analysis
+from tools.competitor_analysis import competitor_analysis
+from tools.risk_assessment import risk_assessment
 
-# If you want to run a snippet of code before or after the crew starts, 
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
+def create_crew(stock_symbol):
+    # Initialize Ollama LLM
+    llm = Ollama(model="tinyllama")  # Make sure you have the llama2 model installed in Ollama
 
-@CrewBase
-class Fina1():
-	"""Fina1 crew"""
+    # Define Agents
+    researcher = Agent(
+        role='Stock Market Researcher',
+        goal='Gather and analyze comprehensive data about the stock',
+        backstory="You're an experienced stock market researcher with a keen eye for detail and a talent for uncovering hidden trends.",
+        # tools=[yf_tech_analysis, yf_fundamental_analysis, competitor_analysis],
+        tools=[yf_tech_analysis, risk_assessment],
+        llm=llm
+    )
 
-	# Learn more about YAML configuration files here:
-	# Agents: https://docs.crewai.com/concepts/agents#yaml-configuration-recommended
-	# Tasks: https://docs.crewai.com/concepts/tasks#yaml-configuration-recommended
-	agents_config = 'config/agents.yaml'
-	tasks_config = 'config/tasks.yaml'
+    analyst = Agent(
+        role='Financial Analyst',
+        goal='Analyze the gathered data and provide investment insights',
+        backstory="You're a seasoned financial analyst known for your accurate predictions and ability to synthesize complex information.",
+        # tools=[yf_tech_analysis, yf_fundamental_analysis, risk_assessment],
+        tools=[yf_tech_analysis, risk_assessment],
+        llm=llm
+    )
 
-	# If you would like to add tools to your agents, you can learn more about it here:
-	# https://docs.crewai.com/concepts/agents#agent-tools
-	@agent
-	def researcher(self) -> Agent:
-		return Agent(
-			config=self.agents_config['researcher'],
-			verbose=True
-		)
+    sentiment_analyst = Agent(
+        role='Sentiment Analyst',
+        goal='Analyze market sentiment and its potential impact on the stock',
+        backstory="You're an expert in behavioral finance and sentiment analysis, capable of gauging market emotions and their effects on stock performance.",
+        tools=[sentiment_analysis],
+        llm=llm
+    )
 
-	@agent
-	def reporting_analyst(self) -> Agent:
-		return Agent(
-			config=self.agents_config['reporting_analyst'],
-			verbose=True
-		)
+    strategist = Agent(
+        role='Investment Strategist',
+        goal='Develop a comprehensive investment strategy based on all available data',
+        backstory="You're a renowned investment strategist known for creating tailored investment plans that balance risk and reward.",
+        tools=[],
+        llm=llm
+    )
 
-	# To learn more about structured task outputs, 
-	# task dependencies, and task callbacks, check out the documentation:
-	# https://docs.crewai.com/concepts/tasks#overview-of-a-task
-	@task
-	def research_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['research_task'],
-		)
+    # Define Tasks
+    research_task = Task(
+        description=f"Research {stock_symbol} using advanced technical and fundamental analysis tools. Provide a comprehensive summary of key metrics, including chart patterns, financial ratios, and competitor analysis.",
+        agent=researcher
+    )
 
-	@task
-	def reporting_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['reporting_task'],
-			output_file='report.md'
-		)
+    sentiment_task = Task(
+        description=f"Analyze the market sentiment for {stock_symbol} using news and social media data. Evaluate how current sentiment might affect the stock's performance.",
+        agent=sentiment_analyst
+    )
 
-	@crew
-	def crew(self) -> Crew:
-		"""Creates the Fina1 crew"""
-		# To learn how to add knowledge sources to your crew, check out the documentation:
-		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
+    analysis_task = Task(
+        description=f"Synthesize the research data and sentiment analysis for {stock_symbol}. Conduct a thorough risk assessment and provide a detailed analysis of the stock's potential.",
+        agent=analyst
+    )
 
-		return Crew(
-			agents=self.agents, # Automatically created by the @agent decorator
-			tasks=self.tasks, # Automatically created by the @task decorator
-			process=Process.sequential,
-			verbose=True,
-			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
-		)
+    strategy_task = Task(
+        description=f"Based on all the gathered information about {stock_symbol}, develop a comprehensive investment strategy. Consider various scenarios and provide actionable recommendations for different investor profiles.",
+        agent=strategist
+    )
+
+    # Create Crew
+    crew = Crew(
+        agents=[researcher, sentiment_analyst, analyst, strategist],
+        tasks=[research_task, sentiment_task, analysis_task, strategy_task],
+        process=Process.sequential
+    )
+    return crew
+
+def run_analysis(stock_symbol):
+    crew = create_crew(stock_symbol)
+    result = crew.kickoff()
+
+    # Simulated analysis result
+    analysis_result = {
+        "technical_analysis": "Sample technical analysis data",
+        "fundamental_analysis": "Sample fundamental analysis data",
+        "sentiment_analysis": "Sample sentiment analysis data",
+        "risk_assessment": "Sample risk assessment data",
+        "competitor_analysis": "Sample competitor analysis data",
+        "investment_strategy": "Sample investment strategy data"
+    }
+
+    return json.dumps(analysis_result)

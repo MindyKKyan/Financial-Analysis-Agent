@@ -1,10 +1,10 @@
 from crewai import Agent, Task, Crew, Process
 from langchain.llms import Ollama
-from tools.yf_tech_analysis_tool import yf_tech_analysis
-from tools.yf_fundamental_analysis_tool import yf_fundamental_analysis
-from tools.sentiment_analysis_tool import sentiment_analysis
-from tools.competitor_analysis_tool import competitor_analysis
-from tools.risk_assessment_tool import risk_assessment
+from tools.yf_tech_analysis import yf_tech_analysis
+from tools.yf_fundamental_analysis import yf_fundamental_analysis
+from tools.sentiment_analysis import sentiment_analysis
+from tools.competitor_analysis import competitor_analysis
+from tools.risk_assessment import risk_assessment
 
 def create_crew(stock_symbol):
     # Initialize Ollama LLM

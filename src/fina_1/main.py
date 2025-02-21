@@ -8,7 +8,7 @@ def main():
     st.set_page_config(layout="wide")
     st.title("AI-Powered Advanced Stock Analysis")
 
-    # User input
+    # User input for stock ticker symbol
     stock_symbol = st.text_input("Enter stock symbol (e.g., AAPL):", "AAPL")
     
     if st.button("Analyze Stock"):
@@ -19,7 +19,7 @@ def main():
         # Parse the result
         analysis = json.loads(result)
         
-        # Display analysis result
+        # Display analysis result in a report format
         st.header("AI Analysis Report")
         
         col1, col2 = st.columns(2)
@@ -47,11 +47,11 @@ def main():
         st.subheader("Investment Strategy")
         st.write(analysis.get('investment_strategy', 'No investment strategy available'))
         
-        # Fetch stock data for chart
+        # Fetch stock data for chart generation
         stock = yf.Ticker(stock_symbol)
         hist = stock.history(period="1y")
         
-        # Create interactive chart
+        # Create interactive candlestick chart
         fig = go.Figure()
         fig.add_trace(go.Candlestick(x=hist.index,
                                      open=hist['Open'],
