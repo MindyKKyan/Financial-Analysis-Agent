@@ -1,10 +1,6 @@
-（由于技术原因，联网搜索暂不可用）
-
-Here’s a new `README.md` for your project, inspired by the article and tailored for a financial analysis multi-agent system using CrewAI and Ollama models. It includes emojis for better readability and engagement:
-
----
 
 # 🚀 Financial Analysis Multi-Agent System with CrewAI & Ollama
+---
 
 Welcome to the **Financial Analysis Multi-Agent System**! This project leverages the power of **CrewAI** and **Ollama** to create a collaborative team of AI agents that automate and enhance financial analysis tasks. Whether you're analyzing stock performance, assessing risks, or generating investment strategies, this system provides a comprehensive solution powered by open-source LLMs. 💼📈
 
